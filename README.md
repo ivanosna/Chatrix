@@ -1,7 +1,6 @@
 # 💬 Chatrix – Fullstack Chat App
 
-Chatrix is a simple real-time chat application built with **Node.js, Express, Socket.io and a vanilla frontend (HTML, CSS, JavaScript)**.
-It allows users to send messages instantly and share images in real time.
+Chatrix is a „Real-time chat application with WebSocket-based messaging and image sharing“
 
 > ⚠️ This project is still in development. New features will be added over time.
 
