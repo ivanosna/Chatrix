@@ -6,7 +6,39 @@ const fileInput = document.getElementById("fileInput");
 
 const socket = io();
 
-// TEXT EMPFANGEN
+// =======================
+//  USERS VOM BACKEND HOLEN
+// =======================
+async function loadUsers() {
+  try {
+    let res = await fetch("http://localhost:2000/users");
+    let data = await res.json();
+
+    console.log("Users vom Server:", data.users);
+
+    // optional: anzeigen im UI
+    ulList.innerHTML = "";
+
+    data.users
+  .filter(user => user.loggedIn)
+  .forEach(user => {
+    let li = document.createElement("li");
+    li.textContent = `${user.name} (${user.age})`;
+    ulList.appendChild(li);
+  });
+
+  } catch (err) {
+    console.log("Fehler beim Laden der Users:", err);
+  }
+}
+
+// beim Start laden
+loadUsers();
+
+
+// =======================
+// TEXT EMPFANGEN (SOCKET)
+// =======================
 socket.on("message", (data) => {
   let li = document.createElement("li");
   li.textContent = data.text;
@@ -21,7 +53,10 @@ socket.on("message", (data) => {
   ulList.appendChild(li);
 });
 
+
+// =======================
 // IMAGE EMPFANGEN
+// =======================
 socket.on("image", (data) => {
   let li = document.createElement("li");
   li.classList.add("bubble");
@@ -42,43 +77,48 @@ socket.on("image", (data) => {
   ulList.appendChild(li);
 });
 
-// BUTTON → FILE OPEN
+
+// =======================
+// FILE BUTTON
+// =======================
 plusBtn.addEventListener("click", () => {
   fileInput.click();
 });
 
-// FILE AUSWÄHLEN → SENDEN
 fileInput.addEventListener("change", function () {
-  console.log("1. Datei ausgewählt");
-
   let file = fileInput.files[0];
   if (!file) return;
 
   let reader = new FileReader();
 
   reader.onload = function (e) {
-    console.log("2. FileReader fertig");
-
     const base64Image = e.target.result;
-    console.log("3. Sende Bild an Server");
-
     socket.emit("image", base64Image);
   };
 
   reader.readAsDataURL(file);
 });
 
+
+// =======================
 // ENTER KEY
+// =======================
 input.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
     sendMessage();
   }
 });
 
+
+// =======================
 // BUTTON CLICK
+// =======================
 send.addEventListener("click", sendMessage);
 
-// TEXT SENDEN
+
+// =======================
+// MESSAGE SENDEN
+// =======================
 function sendMessage() {
   let eingabe = input.value;
 

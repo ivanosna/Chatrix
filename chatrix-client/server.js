@@ -10,9 +10,6 @@ app.use(express.static(path.join(__dirname, "../chatrix-client")));
 
 let port = 2000;
 
-http.listen(port, () => {
-  console.log("Server läuft auf Port: 2000");
-});
 
 io.on("connection", (socket) => {
   console.log("Ein User ist verbunden");
@@ -35,4 +32,8 @@ socket.on("image", (data) => {
   });
 });
 
+});
+
+http.listen(port, () => {
+  console.log("Server läuft auf Port: 2000");
 });
