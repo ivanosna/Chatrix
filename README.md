@@ -1,21 +1,23 @@
-# 💬 Chatrix – Fullstack Chat App
+# 💬 Chatrix – Fullstack Real-Time Chat App
 
-Chatrix is a real-time chat application built with WebSockets (Socket.io), supporting instant messaging and image sharing.
+![Preview](./assets/screenshot.png)
 
-⚠️ This project is still in development. New features will be added over time.
+Chatrix is a fullstack real-time chat application with authentication, image sharing and WebSocket communication.
+authentication systems and real-time communication.
 
 ---
 
 ## 🚀 Features
 
+- 🔐 User authentication (Register / Login)
+- 🪪 JWT-based login system
 - 💬 Real-time messaging (Socket.io)
-- 🧑‍🤝‍🧑 Multi-user support
-- 🟢 Online / offline user tracking
-- 🖼️ Image sharing (base64 upload)
-- 🎨 Custom UI with CSS styling
-- ⚡ Fast Node.js backend
-- 🔄 Live updates without page refresh
-- 🧩 Basic REST API (users, login, CRUD system)
+- 🧑‍🤝‍🧑 Multi-user chat support
+- 🖼️ Image sharing (Base64 upload)
+- 🚪 Logout functionality
+- 🔒 Protected routes (login required)
+- ⚡ Instant message updates (no refresh needed)
+- 🎨 Custom UI with modern CSS styling
 
 ---
 
@@ -24,12 +26,15 @@ Chatrix is a real-time chat application built with WebSockets (Socket.io), suppo
 ### Frontend
 - HTML
 - CSS
-- JavaScript (Vanilla JS)
+- Vanilla JavaScript
 
 ### Backend
 - Node.js
 - Express.js
 - Socket.io
+- JSON file storage (for learning purposes)
+- JWT Authentication
+- bcrypt password hashing
 
 ---
 
@@ -39,14 +44,17 @@ Chatrix is a real-time chat application built with WebSockets (Socket.io), suppo
 chatrix/
 ├── chatrix-client/
 │ ├── index.html
+│ ├── login.html
 │ ├── index.js
 │ ├── style.css
 │
 ├── chatrix-server/
 │ ├── server.js
 │ ├── package.json
+│ ├── .env
+│ ├── datenbank.json
 │ ├── routes/
-│ │ ├── userRoutes.js
+│ │ └── auth.routes.js
 │
 └── README.md
 
@@ -58,25 +66,34 @@ chatrix/
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/ivanosna/Chatrix.git
-2. Install dependencies (backend)
+2. Install backend dependencies
 cd chatrix-server
 npm install
-3. Start backend server
+3. Create .env file
+
+Inside chatrix-server:
+
+JWT_SECRET=your_secret_key
+4. Start the server
 node server.js
-4. Open frontend
+5. Open the app
 
-Open:
+Open in browser:
 
-chatrix-client/index.html
-
-in your browser.
-
+http://localhost:2000/login.html
+🔐 Authentication Flow
+User registers account
+Password is hashed (bcrypt)
+Login returns JWT token
+Token stored in localStorage
+Chat is only accessible when logged in
 📌 Future Improvements
-💾 Database integration (MongoDB / SQL)
-🔐 User authentication (real login system)
+💾 Replace JSON storage with MongoDB
 🏠 Chat rooms / channels
-📱 Mobile responsive UI
-☁️ Deployment (Render / Vercel)
+👤 User profiles
+🟢 Online status system
+📱 Mobile responsive redesign
+☁️ Deployment (Render / Railway)
 🔔 Notifications system
 👨‍💻 Author
 
