@@ -1,6 +1,6 @@
 # 💬 Chatrix – Fullstack Real-Time Chat App
 
-![Preview](./assets/screenshot.png)
+![Preview](./assets/screenshot.png.png)
 
 Chatrix is a fullstack real-time chat application with authentication, image sharing and WebSocket communication.
 authentication systems and real-time communication.
