@@ -1,46 +1,104 @@
+console.log("JS LOADED");
+
+const socket = io();
+
+// =====================
+// ELEMENTS
+// =====================
 const input = document.getElementById("inputEl");
 const send = document.getElementById("buttonEl");
 const ulList = document.getElementById("ulEl");
 const plusBtn = document.getElementById("plusBtn");
 const fileInput = document.getElementById("fileInput");
+const logoutBtn = document.getElementById("logoutBtn");
 
-const socket = io();
+const usernameInput = document.getElementById("usernameEl");
+const passwordInput = document.getElementById("passwordEl");
+const loginBtn = document.getElementById("loginBtn");
 
-// =======================
-//  USERS VOM BACKEND HOLEN
-// =======================
-async function loadUsers() {
-  try {
-    let res = await fetch("http://localhost:2000/users");
-    let data = await res.json();
+const regUsername = document.getElementById("regUsernameEl");
+const regPassword = document.getElementById("regPasswordEl");
+const registerBtn = document.getElementById("registerBtn");
 
-    console.log("Users vom Server:", data.users);
+const errorText = document.getElementById("errorText");
 
-    // optional: anzeigen im UI
-    ulList.innerHTML = "";
-
-    data.users
-  .filter(user => user.loggedIn)
-  .forEach(user => {
-    let li = document.createElement("li");
-    li.textContent = `${user.name} (${user.age})`;
-    ulList.appendChild(li);
-  });
-
-  } catch (err) {
-    console.log("Fehler beim Laden der Users:", err);
+// =====================
+// LOGIN CHECK
+// =====================
+if (!window.location.pathname.includes("login")) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "login.html";
   }
 }
 
-// beim Start laden
-loadUsers();
+// =====================
+// LOGIN
+// =====================
+async function login() {
+  const res = await fetch("/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: usernameInput?.value,
+      password: passwordInput?.value
+    })
+  });
 
+  const data = await res.json();
 
-// =======================
-// TEXT EMPFANGEN (SOCKET)
-// =======================
+  if (data.token) {
+    localStorage.setItem("token", data.token);
+    window.location.href = "index.html";
+  } else {
+    if (errorText) {
+      errorText.style.color = "red";
+      errorText.textContent = data.error;
+    }
+  }
+}
+
+if (loginBtn) {
+  loginBtn.addEventListener("click", login);
+}
+
+// =====================
+// REGISTER
+// =====================
+async function register() {
+  const res = await fetch("/auth/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: regUsername?.value,
+      password: regPassword?.value
+    })
+  });
+
+  const data = await res.json();
+
+  if (data.message) {
+    if (errorText) {
+      errorText.style.color = "lightgreen";
+      errorText.textContent = "Account created! Now login.";
+    }
+  } else {
+    if (errorText) {
+      errorText.style.color = "red";
+      errorText.textContent = data.error;
+    }
+  }
+}
+
+if (registerBtn) {
+  registerBtn.addEventListener("click", register);
+}
+
+// =====================
+// TEXT EMPFANGEN
+// =====================
 socket.on("message", (data) => {
-  let li = document.createElement("li");
+  const li = document.createElement("li");
   li.textContent = data.text;
   li.classList.add("bubble");
 
@@ -53,18 +111,15 @@ socket.on("message", (data) => {
   ulList.appendChild(li);
 });
 
-
-// =======================
+// =====================
 // IMAGE EMPFANGEN
-// =======================
+// =====================
 socket.on("image", (data) => {
-  let li = document.createElement("li");
+  const li = document.createElement("li");
   li.classList.add("bubble");
 
-  let img = document.createElement("img");
+  const img = document.createElement("img");
   img.src = data.img;
-
-  img.style.border = "3px solid red";
 
   li.appendChild(img);
 
@@ -77,55 +132,57 @@ socket.on("image", (data) => {
   ulList.appendChild(li);
 });
 
-
-// =======================
-// FILE BUTTON
-// =======================
-plusBtn.addEventListener("click", () => {
-  fileInput.click();
-});
-
-fileInput.addEventListener("change", function () {
-  let file = fileInput.files[0];
-  if (!file) return;
-
-  let reader = new FileReader();
-
-  reader.onload = function (e) {
-    const base64Image = e.target.result;
-    socket.emit("image", base64Image);
-  };
-
-  reader.readAsDataURL(file);
-});
-
-
-// =======================
-// ENTER KEY
-// =======================
-input.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    sendMessage();
-  }
-});
-
-
-// =======================
-// BUTTON CLICK
-// =======================
-send.addEventListener("click", sendMessage);
-
-
-// =======================
-// MESSAGE SENDEN
-// =======================
+// =====================
+// SEND MESSAGE
+// =====================
 function sendMessage() {
-  let eingabe = input.value;
+  if (!input) return;
 
-  if (eingabe.trim() === "") return;
+  if (input.value.trim() === "") return;
 
-  socket.emit("message", eingabe);
+  socket.emit("message", input.value);
 
   input.value = "";
-  input.focus();
+}
+
+if (send) send.addEventListener("click", sendMessage);
+
+if (input) {
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendMessage();
+  });
+}
+
+// =====================
+// IMAGE SEND
+// =====================
+if (plusBtn && fileInput) {
+  plusBtn.addEventListener("click", () => {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener("change", function () {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      socket.emit("image", e.target.result);
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+// =====================
+// LOGOUT
+// =====================
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+  });
 }

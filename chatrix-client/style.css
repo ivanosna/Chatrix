@@ -2,19 +2,19 @@ body {
   font-family: 'Orbitron', sans-serif;
   background-color: #0b0b12;
   color: #00fff7;
+  margin: 0;
 }
 
-h1 {
-  text-shadow: 0 0 5px #00fff7, 0 0 30px #ff00ff;
-  letter-spacing: 2px;
-}
-
+/* ===================== */
+/* HEADER */
+/* ===================== */
 .kopf {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-top: 20px;
 }
 
 .kopf h1 {
@@ -26,90 +26,187 @@ h1 {
 .kopf p {
   font-size: 1rem;
   opacity: 0.7;
-  text-shadow: 0 0 10px #ff00ff;
 }
 
+/* ===================== */
+/* LINKS MENU */
+/* ===================== */
 .link {
   position: absolute;
   top: 20px;
   right: 20px;
 }
 
-a{
+a {
   color: azure;
+  text-decoration: none;
+  margin: 0 5px;
 }
 
-a:hover{
+a:hover {
   color: #ff00ff;
 }
 
-.input{
-  padding: 10px 50px;
-  margin-right: 100px;
-  border-radius: 5px;
+/* ===================== */
+/* INPUTS / BUTTONS */
+/* ===================== */
+.input {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  margin: 10px;
 }
 
-button{
-  font-family:'Orbitron', sans-serif;
-  border-radius: 15px;
-  padding: 10px 30px;
-  margin-right: 90px;
-  margin-top: 15px;
-  box-shadow: 0 0 10px red;
+button {
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 5px;
+  box-shadow: 0 0 10px #ff0000;
+  cursor: pointer;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
+/* ===================== */
+/* CHAT CONTAINER */
+/* ===================== */
 #ulEl {
   list-style: none;
-  padding: 10px;
+  padding: 20px;
+  margin: 0;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 10px;
+
+  align-items: flex-start;
 }
 
+/* ===================== */
+/* BUBBLE BASE */
+/* ===================== */
 .bubble {
-  background: #00fff7;
-  color: black;
   padding: 10px 15px;
-  margin: 6px;
   border-radius: 20px;
   max-width: 60%;
-  box-shadow: 0 0 10px rgba(0,255,247,0.3);
+  word-wrap: break-word;
+  box-shadow: 0 0 10px rgba(0,255,247,0.15);
 }
 
-.me {
-  background: #007aff;
-  color: white;
-  align-self: flex-end;
-}
-
+/* ===================== */
+/* ANDERE (LINKS) */
+/* ===================== */
 .other {
-  background: #e5e5ea;
+  background: #2b2b3d;
+  color: white;
   align-self: flex-start;
+  border-bottom-left-radius: 5px;
+}
+
+/* ===================== */
+/* ICH (RECHTS) */
+/* ===================== */
+.me {
+  background: #00fff7;
+  color: black;
+  align-self: flex-end;
+  border-bottom-right-radius: 5px;
+}
+
+/* ===================== */
+/* IMAGES IN CHAT */
+/* ===================== */
+.bubble img {
+  max-width: 200px;
+  border-radius: 10px;
+  display: block;
+}
+
+/* ===================== */
+/* LOGIN PAGE */
+/* ===================== */
+.login-body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: #0f0f1a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-wrapper {
+  text-align: center;
+}
+
+.login-title h1 {
+  font-size: 40px;
+  margin-bottom: 5px;
+  color: #00ffd5;
+}
+
+.login-title p {
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+/* LOGIN BOX */
+.login-box {
+  background: #1a1a2e;
+  padding: 25px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 280px;
+  box-shadow: 0 0 20px rgba(0, 255, 213, 0.1);
+}
+
+.login-box input {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+.login-box button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #00ffd5;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-box button:hover {
+  background: #00c9aa;
+}
+
+/* SWITCH BUTTONS */
+.switch {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.switch button {
+  background: #2a2a3f;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.switch button:hover {
+  background: #00ffd5;
+  color: black;
 }
 
 .bubble img {
   max-width: 200px;
-  height: auto;
+  border-radius: 10px;
   display: block;
-}
-
-.bubble {
-  overflow: hidden;
-}
-
-.me {
-  background-color: #00fff7;
-  color: black;
-  margin-left: auto;
-}
-
-.other {
-  background-color: #2b2b3d;
-  color: white;
-  margin-right: auto;
 }

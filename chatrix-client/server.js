@@ -8,7 +8,7 @@ const io = require("socket.io")(http, {
 const path = require("path");
 app.use(express.static(path.join(__dirname, "../chatrix-client")));
 
-let port = 2000;
+let PORT = 2000;
 
 
 io.on("connection", (socket) => {
@@ -34,6 +34,6 @@ socket.on("image", (data) => {
 
 });
 
-http.listen(port, () => {
-  console.log("Server läuft auf Port: 2000");
+http.listen(PORT, () => {
+  console.log(`"Server läuft auf http://localhost:${PORT}`);
 });

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatrix Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+  </head>
+
+  <body class="login-body">
+
+    <div class="login-wrapper">
+
+      <div class="login-title">
+        <h1>Chatrix</h1>
+        <p>Welcome</p>
+      </div>
+
+      <div class="switch">
+        <button onclick="showLogin()">Login</button>
+        <button onclick="showRegister()">Register</button>
+        <p id="errorText" style="color:red; margin-top:10px;"></p>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginBox" class="login-box">
+        <input type="text" id="usernameEl" placeholder="username">
+        <input type="password" id="passwordEl" placeholder="password">
+        <button id="loginBtn">Login</button>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="registerBox" class="login-box" style="display:none;">
+        <input type="text" id="regUsernameEl" placeholder="username">
+        <input type="password" id="regPasswordEl" placeholder="password">
+        <button id="registerBtn">Register</button>
+      </div>
+
+    </div>
+
+    <!-- WICHTIG: socket zuerst -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
+
+    <script>
+      function showLogin() {
+        document.getElementById("loginBox").style.display = "flex";
+        document.getElementById("registerBox").style.display = "none";
+      }
+
+      function showRegister() {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("registerBox").style.display = "flex";
+      }
+    </script>
+
+  </body>
+</html>
