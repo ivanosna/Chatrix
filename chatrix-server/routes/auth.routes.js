@@ -1,64 +1,41 @@
 const express = require("express");
+const User = require("../models/User.js")
 const router = express.Router();
-const fs = require("fs");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
 
-// =====================
-// SAFE DB LOAD FUNCTION
-// =====================
-function loadUsers() {
-  try {
-    if (!fs.existsSync("datenbank.json")) {
-      fs.writeFileSync("datenbank.json", "[]");
-    }
-
-    const daten = fs.readFileSync("datenbank.json", "utf-8");
-
-    if (!daten) return [];
-
-    return JSON.parse(daten);
-  } catch (err) {
-    return [];
-  }
-}
-
-
-// =====================
 // REGISTER
-// =====================
+
 router.post("/register", async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
+    const gender = req.body.gender;
 
-    if (!username) {
-      return res.status(400).json({ error: "username is missing" });
-    }
+    if (!username) return res.status(400).json({ error: "username is missing" });
+    if (!password) return res.status(400).json({ error: "password is missing" });
 
-    if (!password) {
-      return res.status(400).json({ error: "password is missing" });
-    }
+    if (!["men", "women"].includes(gender)) {
+      return res.status(400).json({ error: "gender must be men or women" });
+}
 
-    const users = loadUsers();
+    const user = await User.findOne({user: username})
 
-    const userExists = users.find(u => u.user === username);
-
-    if (userExists) {
+    if (user) {
       return res.status(400).json({ error: "user already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    users.push({
+    await User.create({
       user: username,
-      password: hashedPassword
+      password: hashedPassword,
+      gender: gender
     });
 
-    fs.writeFileSync("datenbank.json", JSON.stringify(users, null, 2));
 
     res.json({
       message: "user created",
@@ -72,9 +49,9 @@ router.post("/register", async (req, res) => {
 });
 
 
-// =====================
+
 // LOGIN
-// =====================
+
 router.post("/login", async (req, res) => {
   try {
     const username = req.body.username;
@@ -88,22 +65,20 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ error: "password is missing" });
     }
 
-    const users = loadUsers();
+    const user = await User.findOne({user: username});
 
-    const existingUser = users.find(u => u.user === username);
-
-    if (!existingUser) {
+    if (!user) {
       return res.status(400).json({ error: "user does not exist, please register" });
     }
 
-    const checkPassword = await bcrypt.compare(password, existingUser.password);
+    const checkPassword = await bcrypt.compare(password, user.password);
 
     if (!checkPassword) {
       return res.status(400).json({ error: "wrong password" });
     }
 
     const token = jwt.sign(
-      { username: existingUser.user },
+      { username: user.user },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -120,9 +95,9 @@ router.post("/login", async (req, res) => {
 });
 
 
-// =====================
+
 // MIDDLEWARE
-// =====================
+
 function middleware(req, res, next) {
   const authHeader = req.headers.authorization;
 
@@ -142,9 +117,9 @@ function middleware(req, res, next) {
 }
 
 
-// =====================
+
 // PROFILE
-// =====================
+
 router.get("/profile", middleware, (req, res) => {
   res.json({
     user: req.user

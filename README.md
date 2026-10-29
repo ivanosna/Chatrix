@@ -1,105 +1,148 @@
-# 💬 Chatrix – Fullstack Real-Time Chat App
+# 💬 Chatrix – Fullstack Real-Time Chat Application
 
-![Preview](./screenshot.png)
+![Chatrix Preview](./screenshot.png)
 
-Chatrix is a fullstack real-time chat application with authentication, image sharing and WebSocket communication.
-authentication systems and real-time communication.
+## 📸 Screenshots
 
----
+![Screenshot1](./screenshot1.png)
+
+![Screenshot2](./screenshot2.png)
+
+![Screenshot3](./screenshot3.png)
+
+![Screenshot4](./screenshot4.png)
+
+![Screenshot6](./screenshot6.png)
+
+
+
+Chatrix is a fullstack real-time chat application built with JavaScript, Node.js, Express and MongoDB.
+
+The application features user authentication, real-time public messaging, private one-to-one chat rooms and image sharing. It is an ongoing project focused on learning and building practical fullstack development skills.
 
 ## 🚀 Features
 
-- 🔐 User authentication (Register / Login)
-- 🪪 JWT-based login system
-- 💬 Real-time messaging (Socket.io)
-- 🧑‍🤝‍🧑 Multi-user chat support
-- 🖼️ Image sharing (Base64 upload)
-- 🚪 Logout functionality
-- 🔒 Protected routes (login required)
-- ⚡ Instant message updates (no refresh needed)
-- 🎨 Custom UI with modern CSS styling
-
----
+- 🔐 User registration and login
+- 🔑 JWT-based authentication
+- 🔒 Protected chat access
+- 💬 Real-time public chat using Socket.IO
+- 🧑‍🤝‍🧑 Private one-to-one chat rooms
+- 🎯 Partner matching based on gender preferences
+- 🖼️ Image sharing in public and private chats
+- ⏭️ Next and Leave controls for private rooms
+- 🔐 Password hashing with bcrypt
+- 📱 Responsive user interface
+- ⚡ Instant message updates without page refresh
 
 ## 🧱 Tech Stack
 
 ### Frontend
-- HTML
-- CSS
+- HTML5
+- CSS3
 - Vanilla JavaScript
+- Socket.IO Client
+- Lucide Icons
 
 ### Backend
 - Node.js
 - Express.js
-- Socket.io
-- JSON file storage (for learning purposes)
-- JWT Authentication
-- bcrypt password hashing
-
----
+- Socket.IO
+- MongoDB
+- Mongoose
+- JSON Web Tokens (JWT)
+- bcrypt
 
 ## 📁 Project Structure
 
-
-chatrix/
+```text
+Chatrix/
 ├── chatrix-client/
-│ ├── index.html
-│ ├── login.html
-│ ├── index.js
-│ ├── style.css
+│   ├── index.html
+│   ├── login.html
+│   ├── index.js
+│   └── style.css
 │
 ├── chatrix-server/
-│ ├── server.js
-│ ├── package.json
-│ ├── .env
-│ ├── datenbank.json
-│ ├── routes/
-│ │ └── auth.routes.js
+│   ├── models/
+│   │   └── User.js
+│   ├── routes/
+│   │   └── auth.routes.js
+│   ├── server.js
+│   ├── package.json
+│   └── package-lock.json
 │
-└── README.md
+├── .gitignore
+├── README.md
+└── screenshot.png
+```
 
-
----
-
-## ▶️ How to run locally
+## ⚙️ Getting Started
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/ivanosna/Chatrix.git
-2. Install backend dependencies
+cd Chatrix
+```
+
+### 2. Install backend dependencies
+
+```bash
 cd chatrix-server
 npm install
-3. Create .env file
+```
 
-Inside chatrix-server:
+### 3. Configure environment variables
 
+Create a `.env` file inside the `chatrix-server` directory:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-4. Start the server
-node server.js
-5. Open the app
+```
 
-Open in browser:
+Replace the example values with your own MongoDB connection string and a secure JWT secret.
+
+### 4. Start the server
+
+```bash
+node server.js
+```
+
+### 5. Open the application
+
+Navigate to:
 
 http://localhost:2000/login.html
-🔐 Authentication Flow
-User registers account
-Password is hashed (bcrypt)
-Login returns JWT token
-Token stored in localStorage
-Chat is only accessible when logged in
-📌 Future Improvements
-💾 Replace JSON storage with MongoDB
-🏠 Chat rooms / channels
-👤 User profiles
-🟢 Online status system
-📱 Mobile responsive redesign
-☁️ Deployment (Render / Railway)
-🔔 Notifications system
-👨‍💻 Author
 
-Made by Ivan 🚀
-Junior Software Engineer in progress
+## 🔐 Authentication Flow
 
-⚠️ Note
+1. Users can register and log in.
+2. Passwords are hashed using bcrypt.
+3. The server generates a JWT after successful login.
+4. The token is stored in localStorage.
+5. Socket.IO connections are authenticated using the JWT.
+6. Chat access is restricted to authenticated users.
 
-This project is part of my learning journey and will continuously evolve with new features and improvements.
+## 🛠️ Current Development
+
+Chatrix is actively being developed. Planned improvements include:
+
+- ❤️ Mutual likes and match notifications
+- 💾 Saving matched private conversations
+- 📜 Private chat history
+- 👤 User profiles
+- 🟢 Online status
+- ☁️ Deployment
+
+## 👨‍💻 Author
+
+**Ivan**
+
+Aspiring Fullstack Developer – currently focusing on Backend Development.
+
+## 📌 Project Status
+
+Chatrix is a personal learning project that I continuously improve by implementing new features and working with real backend technologies.
+
+The goal is to build a deeper understanding of fullstack development, authentication, databases and real-time communication.

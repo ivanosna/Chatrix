@@ -5,9 +5,9 @@ body {
   margin: 0;
 }
 
-/* ===================== */
+
 /* HEADER */
-/* ===================== */
+
 .kopf {
   display: flex;
   flex-direction: column;
@@ -28,9 +28,9 @@ body {
   opacity: 0.7;
 }
 
-/* ===================== */
+
 /* LINKS MENU */
-/* ===================== */
+
 .link {
   position: absolute;
   top: 20px;
@@ -47,9 +47,9 @@ a:hover {
   color: #ff00ff;
 }
 
-/* ===================== */
+
 /* INPUTS / BUTTONS */
-/* ===================== */
+
 .input {
   padding: 10px 20px;
   border-radius: 8px;
@@ -67,9 +67,9 @@ button {
   cursor: pointer;
 }
 
-/* ===================== */
+
 /* CHAT CONTAINER */
-/* ===================== */
+
 #ulEl {
   list-style: none;
   padding: 20px;
@@ -82,9 +82,9 @@ button {
   align-items: flex-start;
 }
 
-/* ===================== */
+
 /* BUBBLE BASE */
-/* ===================== */
+
 .bubble {
   padding: 10px 15px;
   border-radius: 20px;
@@ -93,9 +93,9 @@ button {
   box-shadow: 0 0 10px rgba(0,255,247,0.15);
 }
 
-/* ===================== */
+
 /* ANDERE (LINKS) */
-/* ===================== */
+
 .other {
   background: #2b2b3d;
   color: white;
@@ -103,9 +103,9 @@ button {
   border-bottom-left-radius: 5px;
 }
 
-/* ===================== */
+
 /* ICH (RECHTS) */
-/* ===================== */
+
 .me {
   background: #00fff7;
   color: black;
@@ -113,18 +113,17 @@ button {
   border-bottom-right-radius: 5px;
 }
 
-/* ===================== */
+
 /* IMAGES IN CHAT */
-/* ===================== */
+
 .bubble img {
   max-width: 200px;
   border-radius: 10px;
   display: block;
 }
 
-/* ===================== */
 /* LOGIN PAGE */
-/* ===================== */
+
 .login-body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
@@ -210,3 +209,172 @@ button {
   border-radius: 10px;
   display: block;
 }
+
+
+
+/* ROOMS POPUP */
+#roomsPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 320px;
+  padding: 30px;
+  text-align: center;
+
+  background: #202b3c;
+  color: #ffffff;
+
+  border: 1px solid #00bfff;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 191, 255, 0.25);
+
+  z-index: 1000;
+}
+
+#roomsPopup h2 {
+  margin-top: 0;
+  color: #00bfff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+#roomsPopup p {
+  margin-bottom: 25px;
+}
+
+#roomsPopup button {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+
+  background: #00bfff;
+  color: #101820;
+
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: background 0.2s, transform 0.2s;
+}
+
+#roomsPopup button:hover {
+  background: #66d9ff;
+  transform: scale(1.03);
+}
+
+
+
+/* CHATRIX PRIVATE CHAT CONTROLS */
+
+#roomStatus {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+
+  width: 150px;
+  padding: 14px;
+
+  background: rgba(23, 33, 47, 0.97);
+  border: 1px solid #00bfff;
+  border-radius: 14px;
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.15);
+}
+
+#roomStatus[hidden] {
+  display: none;
+}
+
+#roomPartner {
+  color: #00fff7;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 5px 0;
+}
+
+#roomStatus button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 10px;
+  margin: 0;
+
+  background: #202b3c;
+  color: #e2e8f0;
+  border: 1px solid #36566d;
+  border-radius: 9px;
+
+  box-shadow: none;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#roomStatus button:hover {
+  background: #164e63;
+  border-color: #00fff7;
+  color: #00fff7;
+  transform: translateY(-2px);
+}
+
+#roomStatus button svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 2;
+}
+
+#roomStatus #likeBtn {
+  color: #fb7185;
+  border-color: #9f4058;
+}
+
+#roomStatus #likeBtn:hover {
+  background: #4c1d35;
+  border-color: #fb7185;
+}
+
+#roomStatus button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* RESPONSIVE NAVIGATION */
+
+@media (max-width: 700px) {
+  .link {
+    position: relative;
+    top: auto;
+    right: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+
+    margin-top: 15px;
+    padding: 10px;
+  }
+
+  #roomStatus {
+    position: relative;
+    top: auto;
+    left: auto;
+
+    width: 180px;
+    margin: 15px auto;
+  }
+}
+

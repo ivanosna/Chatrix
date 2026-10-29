@@ -1,26 +1,61 @@
+
 <!DOCTYPE html>
 <html>
   <head>
-
     <title>Chatrix</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-
   </head>
+
   <body>
-    
     <div class="kopf">
       <h1>Chatrix</h1>
       <p>Welcome to the system .....</p>
     </div>
 
+    <!-- NAVIGATION -->
     <div class="link">
       <a href="#">My Contacts</a> |
       <a href="#">History</a> |
-      <a href="#">Rooms</a> |
+      <a href="#" id="roomsBtn">Rooms</a> |
       <a href="#" id="logoutBtn">Log-Out</a>
     </div>
 
+
+
+    
+    <div id="roomStatus" hidden>
+      <p id="roomPartner">Private Chat</p>
+
+      <button id="likeBtn">
+        <i data-lucide="heart"></i>
+        Like
+      </button>
+
+      <button id="nextBtn">
+        <i data-lucide="refresh-cw"></i>
+        Next
+      </button>
+
+      <button id="leaveBtn">
+        <i data-lucide="log-out"></i>
+        Leave
+      </button>
+    </div>
+
+
+
+    <!-- ROOMS POPUP -->
+    <div id="roomsPopup" class="popup" hidden>
+      <h2>Find a Chat Partner</h2>
+      <p>Who would you like to chat with?</p>
+
+      <button id="menBtn">Men</button>
+      <button id="womenBtn">Women</button>
+      <button id="closeRoomsBtn">Cancel</button>
+    </div>
+
+    <!-- CHAT INPUT -->
     <div class="kopf input">
       <input type="text" class="input" id="inputEl" autocomplete="off" placeholder="Say something nice ..... ">
       <button id="plusBtn">Image</button>
@@ -30,8 +65,12 @@
 
     <ul id="ulEl"></ul>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+      <script>
+        lucide.createIcons();
+      </script>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="index.js"></script>
-
   </body>
 </html>
