@@ -1,36 +1,27 @@
 # 💬 Chatrix – Fullstack Real-Time Chat Application
 
-![Chatrix Preview](./screenshot.png)
+Chatrix is a fullstack real-time chat application built with JavaScript, Node.js, Express, MongoDB and Socket.IO.
 
-## 📸 Screenshots
+The application features user authentication, real-time public messaging, private one-to-one chat rooms, partner matching, image sharing and persistent match and message data.
 
-![Screenshot1](./screenshot1.png)
-
-![Screenshot2](./screenshot2.png)
-
-![Screenshot3](./screenshot3.png)
-
-![Screenshot4](./screenshot4.png)
-
-![Screenshot6](./screenshot6.png)
-
-
-
-Chatrix is a fullstack real-time chat application built with JavaScript, Node.js, Express and MongoDB.
-
-The application features user authentication, real-time public messaging, private one-to-one chat rooms and image sharing. It is an ongoing project focused on learning and building practical fullstack development skills.
+Chatrix is an ongoing personal project focused on learning and building practical fullstack development skills.
 
 ## 🚀 Features
 
 - 🔐 User registration and login
 - 🔑 JWT-based authentication
-- 🔒 Protected chat access
+- 🔒 Protected routes and authenticated chat access
+- 🔐 Password hashing with bcrypt
 - 💬 Real-time public chat using Socket.IO
 - 🧑‍🤝‍🧑 Private one-to-one chat rooms
 - 🎯 Partner matching based on gender preferences
+- ❤️ Mutual likes and match notifications
+- 💾 Persistent matches stored in MongoDB
+- 📜 Private text message history stored in MongoDB
 - 🖼️ Image sharing in public and private chats
 - ⏭️ Next and Leave controls for private rooms
-- 🔐 Password hashing with bcrypt
+- 📡 Animated partner search with cancel functionality
+- 🛡️ Rate limiting for important authentication and chat events
 - 📱 Responsive user interface
 - ⚡ Instant message updates without page refresh
 
@@ -51,6 +42,8 @@ The application features user authentication, real-time public messaging, privat
 - Mongoose
 - JSON Web Tokens (JWT)
 - bcrypt
+- Helmet
+- dotenv
 
 ## 📁 Project Structure
 
@@ -64,16 +57,19 @@ Chatrix/
 │
 ├── chatrix-server/
 │   ├── models/
-│   │   └── User.js
+│   │   ├── User.js
+│   │   ├── Match.js
+│   │   └── Message.js
+│   │
 │   ├── routes/
 │   │   └── auth.routes.js
+│   │
 │   ├── server.js
 │   ├── package.json
 │   └── package-lock.json
 │
 ├── .gitignore
-├── README.md
-└── screenshot.png
+└── README.md
 ```
 
 ## ⚙️ Getting Started
@@ -113,26 +109,42 @@ node server.js
 
 Navigate to:
 
+```text
 http://localhost:2000/login.html
+```
 
 ## 🔐 Authentication Flow
 
 1. Users can register and log in.
-2. Passwords are hashed using bcrypt.
+2. User passwords are hashed using bcrypt before being stored.
 3. The server generates a JWT after successful login.
-4. The token is stored in localStorage.
-5. Socket.IO connections are authenticated using the JWT.
-6. Chat access is restricted to authenticated users.
+4. The token is stored in localStorage on the client.
+5. Protected HTTP routes verify the JWT.
+6. Socket.IO connections are authenticated using the JWT.
+7. Only authenticated users can access chat functionality.
+
+## 💾 Data Persistence
+
+Chatrix uses MongoDB and Mongoose to store user and chat-related data.
+
+- User accounts and password hashes
+- Matched users and match information
+- Private text messages and message timestamps
+
+Images are shared in real time and are not permanently stored in MongoDB.
 
 ## 🛠️ Current Development
 
 Chatrix is actively being developed. Planned improvements include:
 
-- ❤️ Mutual likes and match notifications
-- 💾 Saving matched private conversations
-- 📜 Private chat history
-- 👤 User profiles
+- 🧭 Dashboard navigation
+- 👤 User profile pages
+- ⚙️ User settings and privacy controls
+- 📜 Improved match history
+- 🔔 Notifications
 - 🟢 Online status
+- 🎥 Real-time video calls using WebRTC
+- ⭐ Premium features and payment integration
 - ☁️ Deployment
 
 ## 👨‍💻 Author
@@ -145,4 +157,6 @@ Aspiring Fullstack Developer – currently focusing on Backend Development.
 
 Chatrix is a personal learning project that I continuously improve by implementing new features and working with real backend technologies.
 
-The goal is to build a deeper understanding of fullstack development, authentication, databases and real-time communication.
+The goal is to build a deeper understanding of backend development, authentication, databases, API design and real-time communication.
+
+The project is still under active development, with new features and improvements planned.
