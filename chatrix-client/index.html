@@ -1,29 +1,32 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Chatrix</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-  </head>
+<head>
+  <title>Chatrix</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
 
-  <body>
+<body>
+
+  <!-- NAVIGATION -->
+  <div class="link">
+    <a href="#">My Contacts</a> |
+    <a href="#" id="matchesBtn">❤️ Matches</a> |
+    <a href="#" id="roomsBtn">Rooms</a> |
+    <a href="#" id="logoutBtn">Log-Out</a>
+  </div>
+
+  <!-- CHAT VIEW -->
+  <div id="chatView">
+
+    <!-- HEADER -->
     <div class="kopf">
       <h1>Chatrix</h1>
       <p>Welcome to the system .....</p>
     </div>
 
-    <!-- NAVIGATION -->
-    <div class="link">
-      <a href="#">My Contacts</a> |
-      <a href="#">History</a> |
-      <a href="#" id="roomsBtn">Rooms</a> |
-      <a href="#" id="logoutBtn">Log-Out</a>
-    </div>
-
-
-
-    
+    <!-- PRIVATE CHAT STATUS -->
     <div id="roomStatus" hidden>
       <p id="roomPartner">Private Chat</p>
 
@@ -41,9 +44,12 @@
         <i data-lucide="log-out"></i>
         Leave
       </button>
+
+      <button id="backToMainBtn">
+        <i data-lucide="home"></i>
+        Back to Main Page
+      </button>
     </div>
-
-
 
     <!-- ROOMS POPUP -->
     <div id="roomsPopup" class="popup" hidden>
@@ -55,22 +61,74 @@
       <button id="closeRoomsBtn">Cancel</button>
     </div>
 
+
+        <!-- MATCH SEARCH ANIMATION -->
+    <div id="matchSearch" hidden>
+      <div class="radar">
+        <div class="radar-ring"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-sweep"></div>
+        <div class="radar-center"></div>
+      </div>
+
+      <h2>Searching for a match...</h2>
+      <p>Please wait while we find someone for you.</p>
+      <button id="cancelSearchBtn" type="button">
+        Cancel Search
+      </button>
+    </div>
+
+
+
+
     <!-- CHAT INPUT -->
     <div class="kopf input">
-      <input type="text" class="input" id="inputEl" autocomplete="off" placeholder="Say something nice ..... ">
+      <input
+        type="text"
+        class="input"
+        id="inputEl"
+        autocomplete="off"
+        placeholder="Say something nice ..... "
+      >
+
       <button id="plusBtn">Image</button>
-      <input type="file" id="fileInput" accept="image/*" hidden />
+
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*"
+        hidden
+      />
+
       <button id="buttonEl">Send</button>
     </div>
 
+    <!-- CHAT MESSAGES -->
     <ul id="ulEl"></ul>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-      <script>
-        lucide.createIcons();
-      </script>
+  </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="index.js"></script>
-  </body>
+  <!-- MATCHES VIEW -->
+  <div id="matchesContainer" hidden>
+
+    <h2>❤️ My Matches</h2>
+
+    <ul id="matchesList"></ul>
+
+    <button id="backToChatBtn">Back to Chat</button>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="index.js"></script>
+
+</body>
 </html>

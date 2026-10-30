@@ -1,278 +1,465 @@
+
+/* ========================================
+   CHATRIX - GLOBAL DESIGN
+======================================== */
+
+:root {
+  --bg-main: #090b14;
+  --bg-secondary: #111827;
+  --bg-card: #151e30;
+  --bg-card-hover: #1c2940;
+
+  --cyan: #00fff7;
+  --cyan-dark: #00bfff;
+  --magenta: #ff00ff;
+
+  --text-main: #e5f7ff;
+  --text-muted: #94a3b8;
+
+  --border: rgba(0, 255, 247, 0.2);
+  --shadow-cyan: 0 0 18px rgba(0, 255, 247, 0.12);
+  --shadow-magenta: 0 0 18px rgba(255, 0, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Orbitron', sans-serif;
-  background-color: #0b0b12;
-  color: #00fff7;
+  background:
+    radial-gradient(circle at 50% 0%, #17243b 0%, transparent 45%),
+    var(--bg-main);
+
+  color: var(--cyan);
   margin: 0;
+  min-height: 100vh;
 }
 
 
-/* HEADER */
+/* ========================================
+   HEADER
+======================================== */
 
 .kopf {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   width: 100%;
   margin-top: 20px;
 }
 
 .kopf h1 {
   font-size: 3rem;
-  color: #00fff7;
-  text-shadow: 0 0 10px #00fff7, 0 0 30px #ff00ff;
+  color: var(--cyan);
+
+  text-shadow:
+    0 0 10px var(--cyan),
+    0 0 30px var(--magenta);
+
+  margin-bottom: 5px;
 }
 
 .kopf p {
   font-size: 1rem;
-  opacity: 0.7;
+  color: var(--text-muted);
+  opacity: 0.85;
 }
 
 
-/* LINKS MENU */
+/* ========================================
+   NAVIGATION
+======================================== */
 
 .link {
   position: absolute;
   top: 20px;
   right: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 18px;
+
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: var(--shadow-cyan);
+  backdrop-filter: blur(12px);
 }
 
 a {
-  color: azure;
+  color: var(--text-main);
   text-decoration: none;
   margin: 0 5px;
+
+  font-size: 12px;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 a:hover {
-  color: #ff00ff;
+  color: var(--cyan);
+  text-shadow: 0 0 10px var(--cyan);
 }
 
 
-/* INPUTS / BUTTONS */
+/* ========================================
+   INPUTS
+======================================== */
 
 .input {
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
+  padding: 13px 18px;
+
+  border-radius: 10px;
+  border: 1px solid var(--border);
+
+  background: var(--bg-card);
+  color: var(--text-main);
+
   outline: none;
   margin: 10px;
+
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
+
+.input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px rgba(0, 255, 247, 0.2);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
 
 button {
   font-family: 'Orbitron', sans-serif;
+
+  border: 1px solid rgba(0, 255, 247, 0.35);
   border-radius: 10px;
-  padding: 10px 20px;
+
+  padding: 11px 20px;
   margin: 5px;
-  box-shadow: 0 0 10px #ff0000;
+
+  background: linear-gradient(135deg, #123447, #17243b);
+  color: var(--cyan);
+
+  box-shadow: var(--shadow-cyan);
+
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #164e63, #31204d);
+
+  border-color: var(--magenta);
+
+  box-shadow:
+    0 0 12px rgba(0, 255, 247, 0.25),
+    0 0 15px rgba(255, 0, 255, 0.15);
+
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 
-/* CHAT CONTAINER */
+/* ========================================
+   CHAT INPUT AREA
+======================================== */
+
+.kopf.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: min(850px, 92%);
+  margin: 30px auto 15px;
+
+  padding: 12px;
+
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+
+  box-shadow: var(--shadow-cyan);
+  backdrop-filter: blur(12px);
+}
+
+.kopf.input input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  margin: 5px;
+}
+
+
+/* ========================================
+   CHAT MESSAGES
+======================================== */
 
 #ulEl {
   list-style: none;
+
+  width: min(850px, 92%);
+  min-height: 300px;
+
   padding: 20px;
-  margin: 0;
+  margin: 20px auto;
 
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 
   align-items: flex-start;
+
+  background: rgba(17, 24, 39, 0.55);
+  border: 1px solid rgba(0, 255, 247, 0.1);
+  border-radius: 18px;
+
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 
-/* BUBBLE BASE */
+/* ========================================
+   MESSAGE BUBBLES
+======================================== */
 
 .bubble {
-  padding: 10px 15px;
-  border-radius: 20px;
-  max-width: 60%;
-  word-wrap: break-word;
-  box-shadow: 0 0 10px rgba(0,255,247,0.15);
+  padding: 12px 17px;
+
+  border-radius: 18px;
+
+  max-width: 65%;
+  overflow-wrap: anywhere;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  animation: messageAppear 0.25s ease;
 }
 
 
-/* ANDERE (LINKS) */
+/* OTHER USER */
 
 .other {
-  background: #2b2b3d;
-  color: white;
+  background: linear-gradient(135deg, #202c42, #29364f);
+
+  color: var(--text-main);
+
   align-self: flex-start;
+
+  border: 1px solid rgba(0, 191, 255, 0.2);
   border-bottom-left-radius: 5px;
 }
 
 
-/* ICH (RECHTS) */
+/* MY MESSAGES */
 
 .me {
-  background: #00fff7;
-  color: black;
+  background: linear-gradient(135deg, #00fff7, #00bfff);
+
+  color: #06121c;
+
   align-self: flex-end;
+
   border-bottom-right-radius: 5px;
+
+  box-shadow: 0 0 15px rgba(0, 255, 247, 0.15);
 }
 
 
-/* IMAGES IN CHAT */
+/* MESSAGE ANIMATION */
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ========================================
+   IMAGES IN CHAT
+======================================== */
 
 .bubble img {
   max-width: 200px;
-  border-radius: 10px;
-  display: block;
-}
+  max-height: 250px;
 
-/* LOGIN PAGE */
-
-.login-body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: #0f0f1a;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.login-wrapper {
-  text-align: center;
-}
-
-.login-title h1 {
-  font-size: 40px;
-  margin-bottom: 5px;
-  color: #00ffd5;
-}
-
-.login-title p {
-  opacity: 0.7;
-  margin-bottom: 20px;
-}
-
-/* LOGIN BOX */
-.login-box {
-  background: #1a1a2e;
-  padding: 25px;
   border-radius: 12px;
+  display: block;
+
+  object-fit: contain;
+}
+
+
+/* ========================================
+   MATCHES VIEW
+======================================== */
+
+#matchesContainer {
+  width: min(750px, 92%);
+  margin: 60px auto;
+  padding: 30px;
+
+  background: rgba(17, 24, 39, 0.85);
+
+  border: 1px solid var(--border);
+  border-radius: 20px;
+
+  box-shadow:
+    0 0 25px rgba(0, 255, 247, 0.08),
+    0 0 25px rgba(255, 0, 255, 0.05);
+
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+#matchesContainer h2 {
+  color: var(--cyan);
+  text-shadow: 0 0 12px rgba(0, 255, 247, 0.4);
+
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+#matchesList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 25px;
+
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 280px;
-  box-shadow: 0 0 20px rgba(0, 255, 213, 0.1);
+  gap: 12px;
 }
 
-.login-box input {
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
+#matchesList li {
+  padding: 16px 20px;
+
+  background: linear-gradient(135deg, #18283d, #20213a);
+
+  border: 1px solid rgba(0, 255, 247, 0.2);
+  border-radius: 12px;
+
+  color: var(--text-main);
+  text-align: left;
+
+  transition: all 0.2s ease;
 }
 
-.login-box button {
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #00ffd5;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.login-box button:hover {
-  background: #00c9aa;
-}
-
-/* SWITCH BUTTONS */
-.switch {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-
-.switch button {
-  background: #2a2a3f;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.switch button:hover {
-  background: #00ffd5;
-  color: black;
-}
-
-.bubble img {
-  max-width: 200px;
-  border-radius: 10px;
-  display: block;
+#matchesList li:hover {
+  border-color: var(--magenta);
+  box-shadow: var(--shadow-magenta);
+  transform: translateY(-2px);
 }
 
 
+/* ========================================
+   ROOMS POPUP
+======================================== */
 
-/* ROOMS POPUP */
 #roomsPopup {
   position: fixed;
   top: 50%;
   left: 50%;
+
   transform: translate(-50%, -50%);
 
-  width: 320px;
+  width: min(350px, 90%);
   padding: 30px;
+
   text-align: center;
 
-  background: #202b3c;
-  color: #ffffff;
+  background: rgba(21, 30, 48, 0.96);
+  color: var(--text-main);
 
-  border: 1px solid #00bfff;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(0, 191, 255, 0.25);
+  border: 1px solid var(--cyan-dark);
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 25px rgba(0, 191, 255, 0.2),
+    0 0 40px rgba(255, 0, 255, 0.08);
+
+  backdrop-filter: blur(15px);
 
   z-index: 1000;
 }
 
 #roomsPopup h2 {
   margin-top: 0;
-  color: #00bfff;
+  color: var(--cyan);
+
   font-family: 'Orbitron', sans-serif;
 }
 
 #roomsPopup p {
   margin-bottom: 25px;
+  color: var(--text-muted);
 }
 
 #roomsPopup button {
   display: block;
   width: 100%;
-  margin-top: 12px;
+
+  margin: 12px 0 0;
   padding: 12px;
 
-  background: #00bfff;
-  color: #101820;
+  background: linear-gradient(135deg, #00bfff, #00fff7);
+  color: #08121c;
 
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
+  border-radius: 9px;
 
-  transition: background 0.2s, transform 0.2s;
+  font-weight: bold;
+
+  transition: all 0.2s ease;
 }
 
 #roomsPopup button:hover {
-  background: #66d9ff;
+  background: linear-gradient(135deg, #66d9ff, #b0ffff);
   transform: scale(1.03);
 }
 
 
-
-/* CHATRIX PRIVATE CHAT CONTROLS */
+/* ========================================
+   PRIVATE CHAT CONTROLS
+======================================== */
 
 #roomStatus {
   position: fixed;
-  top: 15px;
-  left: 15px;
+  top: 20px;
+  left: 20px;
+
   z-index: 1000;
 
   display: flex;
@@ -280,13 +467,16 @@ button {
   align-items: stretch;
   gap: 8px;
 
-  width: 150px;
-  padding: 14px;
+  width: 165px;
+  padding: 16px;
 
-  background: rgba(23, 33, 47, 0.97);
-  border: 1px solid #00bfff;
-  border-radius: 14px;
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.15);
+  background: rgba(17, 24, 39, 0.95);
+
+  border: 1px solid var(--cyan-dark);
+  border-radius: 16px;
+
+  box-shadow: var(--shadow-cyan);
+  backdrop-filter: blur(12px);
 }
 
 #roomStatus[hidden] {
@@ -294,11 +484,13 @@ button {
 }
 
 #roomPartner {
-  color: #00fff7;
+  color: var(--cyan);
+
   font-size: 12px;
   font-weight: 600;
+
   text-align: center;
-  margin: 0 0 5px 0;
+  margin: 0 0 8px;
 }
 
 #roomStatus button {
@@ -308,25 +500,23 @@ button {
   gap: 8px;
 
   width: 100%;
-  padding: 10px;
+  padding: 11px;
   margin: 0;
 
   background: #202b3c;
-  color: #e2e8f0;
+  color: var(--text-main);
+
   border: 1px solid #36566d;
   border-radius: 9px;
 
   box-shadow: none;
   font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 #roomStatus button:hover {
   background: #164e63;
-  border-color: #00fff7;
-  color: #00fff7;
-  transform: translateY(-2px);
+  border-color: var(--cyan);
+  color: var(--cyan);
 }
 
 #roomStatus button svg {
@@ -351,9 +541,146 @@ button {
   transform: none;
 }
 
-/* RESPONSIVE NAVIGATION */
+
+/* ========================================
+   LOGIN PAGE
+======================================== */
+
+.login-body {
+  margin: 0;
+
+  font-family: 'Orbitron', sans-serif;
+
+  background:
+    radial-gradient(circle at 50% 20%, #17243b, transparent 50%),
+    var(--bg-main);
+
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+.login-wrapper {
+  text-align: center;
+}
+
+.login-title h1 {
+  font-size: 40px;
+  margin-bottom: 5px;
+
+  color: var(--cyan);
+
+  text-shadow:
+    0 0 10px var(--cyan),
+    0 0 25px var(--magenta);
+}
+
+.login-title p {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.login-box {
+  background: rgba(21, 30, 48, 0.92);
+
+  padding: 30px;
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 280px;
+
+  box-shadow: var(--shadow-cyan);
+  backdrop-filter: blur(12px);
+}
+
+.login-box input {
+  padding: 12px;
+
+  background: #0d1726;
+  color: white;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  outline: none;
+
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-box input:focus {
+  border-color: var(--cyan);
+  box-shadow: var(--shadow-cyan);
+}
+
+.login-box button {
+  padding: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: linear-gradient(135deg, #00fff7, #00bfff);
+  color: #07131c;
+
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-box button:hover {
+  background: #00c9aa;
+}
+
+
+/* ========================================
+   LOGIN / REGISTER SWITCH
+======================================== */
+
+.switch {
+  display: flex;
+  gap: 10px;
+
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.switch button {
+  background: #202b3c;
+  color: white;
+
+  border: 1px solid var(--border);
+
+  padding: 9px 15px;
+  border-radius: 8px;
+}
+
+.switch button:hover {
+  background: var(--cyan);
+  color: black;
+}
+
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
 
 @media (max-width: 700px) {
+
+  .kopf h1 {
+    font-size: 2.2rem;
+  }
+
+  .kopf p {
+    font-size: 0.8rem;
+  }
+
   .link {
     position: relative;
     top: auto;
@@ -361,11 +688,46 @@ button {
 
     display: flex;
     flex-wrap: wrap;
+
     justify-content: center;
     gap: 6px;
 
-    margin-top: 15px;
-    padding: 10px;
+    width: fit-content;
+    max-width: 95%;
+
+    margin: 15px auto;
+    padding: 12px;
+  }
+
+  .link a {
+    font-size: 10px;
+    margin: 3px;
+  }
+
+  .kopf.input {
+    flex-wrap: wrap;
+    width: 94%;
+    padding: 8px;
+  }
+
+  .kopf.input input[type="text"] {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  #ulEl {
+    width: 94%;
+    padding: 12px;
+    min-height: 250px;
+  }
+
+  .bubble {
+    max-width: 85%;
+    font-size: 11px;
+  }
+
+  .bubble img {
+    max-width: 160px;
   }
 
   #roomStatus {
@@ -376,5 +738,193 @@ button {
     width: 180px;
     margin: 15px auto;
   }
+
+  #matchesContainer {
+    margin: 25px auto;
+    padding: 20px;
+  }
+
+  #roomsPopup {
+    padding: 22px;
+  }
 }
 
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+
+
+/* ========================================
+   MATCH SEARCH RADAR
+======================================== */
+
+#matchSearch {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(9, 11, 20, 0.94);
+  backdrop-filter: blur(10px);
+
+  text-align: center;
+}
+
+#matchSearch[hidden] {
+  display: none;
+}
+
+#matchSearch h2 {
+  color: var(--cyan);
+  font-size: 20px;
+  text-shadow: 0 0 12px var(--cyan);
+  margin-top: 35px;
+}
+
+#matchSearch p {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.radar {
+  position: relative;
+  width: 180px;
+  height: 180px;
+
+  border: 1px solid rgba(0, 255, 247, 0.3);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle, rgba(0, 255, 247, 0.08), transparent 70%);
+
+  box-shadow:
+    0 0 20px rgba(0, 255, 247, 0.15),
+    inset 0 0 20px rgba(0, 255, 247, 0.1);
+
+  overflow: hidden;
+}
+
+.radar-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  border: 1px solid rgba(0, 255, 247, 0.3);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.radar-ring:nth-child(1) {
+  width: 35%;
+  height: 35%;
+}
+
+.radar-ring:nth-child(2) {
+  width: 65%;
+  height: 65%;
+}
+
+.radar-ring:nth-child(3) {
+  width: 95%;
+  height: 95%;
+}
+
+.radar-sweep {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(0, 255, 247, 0.05) 250deg,
+    rgba(0, 255, 247, 0.7) 360deg
+  );
+
+  animation: radarRotate 3s linear infinite;
+}
+
+.radar-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 12px;
+  height: 12px;
+
+  background: var(--cyan);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  box-shadow:
+    0 0 10px var(--cyan),
+    0 0 25px var(--cyan),
+    0 0 40px var(--magenta);
+
+  animation: radarPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes radarRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes radarPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+#cancelSearchBtn {
+  margin-top: 25px;
+  padding: 11px 24px;
+
+  background: transparent;
+  color: var(--magenta);
+
+  border: 1px solid var(--magenta);
+  border-radius: 6px;
+
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+
+  box-shadow: 0 0 12px rgba(255, 0, 255, 0.15);
+  transition: 0.2s ease;
+}
+
+#cancelSearchBtn:hover {
+  background: rgba(255, 0, 255, 0.12);
+  box-shadow: 0 0 18px rgba(255, 0, 255, 0.4);
+}
+
+#cancelSearchBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
